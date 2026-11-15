@@ -79,7 +79,7 @@ static char** buffer_entries(DIR* dir, uint64_t* size, size_t* count) {
     for(*count = 0; (dirent_tmp = readdir(dir)) != NULL; (*count)++) {
 	if(*count>=*size-1) {
 	    *size *= 2;
-	    char** tmp = realloc(dirent_tmp,*size*sizeof(char*));
+	    char** tmp = realloc(entry,*size*sizeof(char*));
 	    if(tmp == NULL) {
 		perror("ls: allocation error");
 		free(entry);
