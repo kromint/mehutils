@@ -1,6 +1,6 @@
-## mehutil 
+## mehutils 
 
-is a project trying to make a couple of unix tools with the KISS philisopy in mind 
+is a project trying to make a couple of unix tools with the KISS philosopy in mind 
 
 ## LICENSE
 
