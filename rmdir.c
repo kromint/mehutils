@@ -65,10 +65,9 @@ int main(int argc, char* argv[]) {
 	    } else if (is_parent) { // use else because the child dir needs to be deleted first
 		path = dirname(path);
 
-		if(strcmp(path,".")) {
-		    continue;	
-		}
+		if(strcmp(path,".")) continue;	
 	    }
+
 	    break;
 	}
 	
