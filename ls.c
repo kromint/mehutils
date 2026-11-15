@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <string.h>
 #include <stdint.h>
+#include <string.h>
 
 /* FUNCTION PROTOTYPES */
 static char** buffer_entries(DIR* dir, uint64_t* size, size_t* count);
@@ -55,6 +56,8 @@ int main(int argc,char* argv[]) {
 	return 1;
     }
 
+    closedir(opened_dir);
+
     qsort(dir_buffer,buffer_count,sizeof(char*),compare_names);
 
     for(size_t i = 0; i<buffer_count; i++) {
@@ -62,7 +65,6 @@ int main(int argc,char* argv[]) {
     }
 
     free(dir_buffer); 
-    closedir(opened_dir);
     return 0;
 }
 
@@ -87,7 +89,7 @@ static char** buffer_entries(DIR* dir, uint64_t* size, size_t* count) {
 	    }
 	    entry=tmp;
 	}
-	entry[*count] = dirent_tmp->d_name;
+	entry[*count] = strdup(dirent_tmp->d_name);
     }
 
     return entry;
