@@ -59,11 +59,7 @@ int main(int argc,char* argv[]) {
 	path=argv[i];
     }
 
-    if(path==NULL) {
-	opened_dir = opendir(".");
-    } else {
-	opened_dir = opendir(path);
-    }
+    opened_dir = path ? opendir(path) : opendir(".");
 
     if(opened_dir == NULL) {
 	fprintf(stderr, "ls: cannot access '%s': %s\n", path, strerror(errno));
