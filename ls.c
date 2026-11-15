@@ -52,21 +52,21 @@ int main(int argc,char* argv[]) {
 
     DIR* opened_dir;
 
-    char* suitable_input_for_opendir = NULL;
+    char* path = NULL;
 
     for(int i = 1; i < argc; i++) {
 	if(argv[i][0] == '-') continue;
-	suitable_input_for_opendir=argv[i];
+	path=argv[i];
     }
 
-    if(suitable_input_for_opendir==NULL) {
+    if(path==NULL) {
 	opened_dir = opendir(".");
     } else {
-	opened_dir = opendir(suitable_input_for_opendir);
+	opened_dir = opendir(path);
     }
 
     if(opened_dir == NULL) {
-	fprintf(stderr, "ls: cannot access '%s': %s\n", suitable_input_for_opendir, strerror(errno));
+	fprintf(stderr, "ls: cannot access '%s': %s\n", path, strerror(errno));
 	return 2;
     }
 
