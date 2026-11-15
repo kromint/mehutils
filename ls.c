@@ -66,7 +66,7 @@ int main(int argc,char* argv[]) {
     }
 
     if(opened_dir == NULL) {
-	fprintf(stderr, "ls: cannot access '%s': %s\n",argv[1],strerror(errno));
+	fprintf(stderr, "ls: cannot access '%s': %s\n", suitable_input_for_opendir, strerror(errno));
 	return 2;
     }
 
