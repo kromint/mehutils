@@ -57,6 +57,7 @@ int main(int argc,char* argv[]) {
     for(int i = 1; i < argc; i++) {
 	if(argv[i][0] == '-') continue;
 	path=argv[i];
+	if(path!=NULL) break;
     }
 
     opened_dir = path ? opendir(path) : opendir(".");
