@@ -23,22 +23,46 @@
 #include <string.h>
 #include <stdint.h>
 #include <string.h>
+#include <unistd.h>
+
+// this idea is stolen from busybox by the way
+enum { 
+    OPT_a = (1 << 0),
+    OPT_A = (1 << 1)
+};
 
 /* FUNCTION PROTOTYPES */
 static char** buffer_entries(DIR* dir, uint64_t* size, size_t* count);
 // strcmp wrapper because stupid qsort wont accept strcmp
 static int compare_names(const void* a, const void* b);
 
-
-
 int main(int argc,char* argv[]) {
-    
+    int cliopt; // used to find what arguments are used (only the getopt part)
+    int opt=0;
+    while((cliopt = getopt(argc, argv, "aA"))!=-1) {
+	switch(cliopt) {
+	    case('a'):
+		opt |= OPT_a;
+		break;
+	    case('A'):
+		opt |= OPT_A;
+		break;
+	}
+    }
+
     DIR* opened_dir;
 
-    if(argc<2) {
+    char* suitable_input_for_opendir = NULL;
+
+    for(int i = 1; i < argc; i++) {
+	if(argv[i][0] == '-') continue;
+	suitable_input_for_opendir=argv[i];
+    }
+
+    if(suitable_input_for_opendir==NULL) {
 	opened_dir = opendir(".");
     } else {
-	opened_dir = opendir(argv[1]);
+	opened_dir = opendir(suitable_input_for_opendir);
     }
 
     if(opened_dir == NULL) {
