@@ -3,22 +3,21 @@ CFLAGS= -Wall -Oz
 LDFLAGS =
 
 
-UTILS = ls
+CSRC= rmdir.c ls.c 
+UTILS = $(CSRC:%.c=bin/%)
 
 .PHONY: all clean
 
 
 
-all: bin bin/$(UTILS)
+all: $(UTILS)
 
 bin:
 	mkdir -p $@
 
 
-bin/%:%.c
+bin/%:%.c | bin
 	$(CC) $< -o $@ $(CFLAGS) $(LDFLAGS)
 
 clean:
 	rm -rf bin
-
-.PHONY: $(UTILS)
